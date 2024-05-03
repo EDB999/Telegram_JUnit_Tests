@@ -41,20 +41,16 @@ class TG_JUnit_Bot extends TelegramLongPollingBot {
             String inputFilePath = "/Kot-Load.jpg";
             int statusCodePhoto = sendPhoto(String.valueOf(chatId), inputFilePath);
             System.out.println("Status code: " + statusCode);
-//            if (message.equals("/send_photo")) {
-//                int statusCode = sendMessage(String.valueOf(chatId), "123");
-//                int statusCodePhoto = sendPhoto(String.valueOf(chatId));
-//                System.out.println("Status code: " + statusCode);
-//            }
         }
     }
 
     public int sendMessage(String chatId, String text) {
         SendMessage sendMessage = new SendMessage();
-//        sendMessage.setChatId(chatId+"9999999");
+
         sendMessage.setChatId(chatId);
         sendMessage.setText(text);
         sendMessage.setParseMode(ParseMode.MARKDOWN);
+
         try {
             execute(sendMessage);
             return 200;
@@ -65,10 +61,12 @@ class TG_JUnit_Bot extends TelegramLongPollingBot {
 
     public int sendPhoto(String chatId, String inputFilePath) {
         SendPhoto sendPhoto = new SendPhoto();
+
         sendPhoto.setChatId(String.valueOf(chatId));
         BufferedImage photo = convertPhoto(inputFilePath);
         String outputFilePath = System.getProperty("java.io.tmpdir") + File.separator + "photo.png";
         savePhoto(photo, outputFilePath);
+
         try (InputStream inputStream = new FileInputStream(outputFilePath)) {
             InputFile inputFile = new InputFile(inputStream, "photo.png");
             sendPhoto.setPhoto(inputFile);

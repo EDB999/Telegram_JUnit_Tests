@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,18 +21,22 @@ public class TGJUnitBotPhotoTest {
     public void testSendPhoto_success() throws TelegramApiException, IOException {
         String chatId = "-4196292782";
         String inputFilePath = "/Kot-Load.jpg";
+
         int statusCode = bot.sendPhoto(chatId, inputFilePath);
+
         assertEquals(200, statusCode);
     }
 
     @Test
-    public void testSendPhoto_errorReadingFile() throws TelegramApiException {
+    public void testConvertPhoto_Success() throws TelegramApiException {
         String chatId = "-4196292782";
         String inputFilePath = "Kot-load.jpg";
+
         try {
             bot.convertPhoto(inputFilePath);
+            System.out.println("converting successfully");
         } catch (Exception e) {
-            System.out.println("converting failed succesfully");
+            System.out.println("converting failed");
         }
     }
 
@@ -42,6 +44,7 @@ public class TGJUnitBotPhotoTest {
     public void testConvertPhoto_errorExecuting() throws TelegramApiException, IOException {
         String chatId = "-4196292782";
         String inputFilePath = "/test.txt";
+
         try {
             bot.convertPhoto(inputFilePath);
         } catch (Exception e) {
@@ -52,7 +55,7 @@ public class TGJUnitBotPhotoTest {
     @Test
     public void testSendMessage() {
         String chatId = "-4196292782";
-        String text = "Hello, World!";
+        String text = "Kot";
 
         int statusCode = bot.sendMessage(chatId, text);
 
